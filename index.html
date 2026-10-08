@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Study Planner</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+header{background:linear-gradient(135deg,#172554,#2563eb);color:white;padding:28px 8%;text-align:center}
+header h1{margin:0 0 8px;font-size:34px}header p{margin:0;opacity:.9}
+.container{max-width:1000px;margin:30px auto;padding:0 20px}
+.card{background:white;border-radius:18px;padding:24px;margin-bottom:22px;box-shadow:0 8px 25px rgba(0,0,0,.08)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+label{font-weight:bold;display:block;margin-bottom:7px}input,select{width:100%;padding:12px;border:1px solid #d6dce8;border-radius:10px;font-size:15px}
+button{border:0;background:#2563eb;color:white;padding:13px 22px;border-radius:10px;font-weight:bold;cursor:pointer;margin-top:18px}
+button:hover{background:#1d4ed8}.result{display:none}.plan{background:#eff6ff;border-left:5px solid #2563eb;padding:14px;margin:12px 0;border-radius:8px}
+.badge{display:inline-block;background:#dcfce7;color:#166534;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+footer{text-align:center;color:#667085;padding:15px}
+</style>
+</head>
+<body>
+<header>
+<h1>🤖 AI Study Planner</h1>
+<p>Personalized study planning for students using simple AI-based recommendations</p>
+</header>
+
+<div class="container">
+<div class="card">
+<h2>Create Your Study Plan</h2>
+<div class="grid">
+<div><label>Student Name</label><input id="name" placeholder="Enter your name"></div>
+<div><label>Subjects</label><input id="subjects" placeholder="e.g. Python, ML, SQL"></div>
+<div><label>Daily Study Hours</label><input id="hours" type="number" min="1" max="12" value="3"></div>
+<div><label>Priority</label><select id="priority"><option>Exam Preparation</option><option>Skill Development</option><option>Project Work</option></select></div>
+</div>
+<button onclick="generatePlan()">Generate AI Study Plan</button>
+</div>
+
+<div class="card result" id="result">
+<h2>✨ Your Personalized Plan</h2>
+<p id="welcome"></p>
+<div id="plans"></div>
+<h3>💡 AI Recommendations</h3>
+<ul id="tips"></ul>
+<span class="badge">Plan generated successfully</span>
+</div>
+</div>
+
+<footer>Built with HTML, CSS & JavaScript • IBM Bob Project</footer>
+
+<script>
+function generatePlan(){
+ const name=document.getElementById("name").value.trim() || "Student";
+ const subjects=document.getElementById("subjects").value.trim() || "Python, SQL, Machine Learning";
+ const hours=Math.max(1,Math.min(12,Number(document.getElementById("hours").value)||3));
+ const priority=document.getElementById("priority").value;
+ const list=subjects.split(",").map(s=>s.trim()).filter(Boolean);
+ const each=(hours/list.length).toFixed(1);
+ document.getElementById("result").style.display="block";
+ document.getElementById("welcome").textContent=`Hi ${name}! Based on your ${hours} daily study hours and ${priority.toLowerCase()} goal, here is your plan.`;
+ document.getElementById("plans").innerHTML=list.map((s,i)=>`<div class="plan"><b>${i+1}. ${s}</b><br>Recommended focus: ${each} hour(s) — concept learning + practice + quick revision.</div>`).join("");
+ const tips=[
+ "Start with the highest-priority topic when your concentration is highest.",
+ "Use active recall instead of only rereading notes.",
+ "Keep the last 15–20 minutes for revision and practice questions.",
+ "Review your progress every 3 days and adjust the plan."
+ ];
+ document.getElementById("tips").innerHTML=tips.map(t=>`<li>${t}</li>`).join("");
+}
+</script>
+</body>
+</html>
