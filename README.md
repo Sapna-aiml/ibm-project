@@ -1,3 +1,4 @@
+
 # AI Study Planner — IBM Bob Project
 
 ## Project
@@ -13,3 +14,6 @@ Open `index.html` in a browser, or open the project in IBM Bob and use its previ
 
 ## IBM Bob usage
 Use IBM Bob to generate, edit, test, and improve the interface. The project intentionally uses no external API key, so it is easy to demonstrate.
+
+
+
